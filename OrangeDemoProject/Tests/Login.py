@@ -11,8 +11,6 @@ def test_setup():
     driver.maximize_window()
     # Test teardown (exectued after any test)
     yield
-
-
     driver.quit()
     print("Test Completed")
 
