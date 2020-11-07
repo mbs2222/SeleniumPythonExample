@@ -9,8 +9,10 @@ def test_setup():
     driver = webdriver.Chrome(executable_path="C:/Users/medbe/Documents/Automation Testing/SeleniumProject/SeleniumWebdrivers/chromedriver.exe")
     driver.implicitly_wait(10)
     driver.maximize_window()
-    #Test teardown (exectued after any test)
+    # Test teardown (exectued after any test)
     yield
+
+
     driver.quit()
     print("Test Completed")
 
