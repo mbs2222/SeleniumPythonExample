@@ -1,27 +1,30 @@
 from selenium import webdriver
-import pytest
+import unittest
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "...", "..."))
+from OrangeDemoProject.Pages.LoginPage import LoginPage
 
-# TODO Transform to POM
+class test_login(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Chrome(executable_path="C:/Users/medbe/Documents/Automation Testing/SeleniumProject/SeleniumWebdrivers/chromedriver.exe")
+        cls.driver.implicitly_wait(10)
+        cls.driver.maximize_window()
 
-# Test setup and teardown using pytest
-@pytest.fixture()
-def test_setup():
-    # Test setup (executed before any test)
-    global driver  # "driver" must be global: It is used in all functions
-    driver = webdriver.Chrome(
-        executable_path="C:/Users/medbe/Documents/Automation Testing/SeleniumProject/SeleniumWebdrivers/chromedriver.exe")
-    driver.implicitly_wait(10)
-    driver.maximize_window()
-    # Test teardown (executed after any test)
-    yield
-    driver.quit()
-    print("Test Completed")
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        print("Test Completed")
 
+    def test_login(self):
+        driver = self.driver
+        login = LoginPage(driver)
+        driver.get("https://opensource-demo.orangehrmlive.com/index.php/auth/login")
+        login.enter_username("Admin")
+        login.enter_password("admin123")
+        login.click_login()
 
-def test_login(test_setup):
-    driver.get("https://opensource-demo.orangehrmlive.com/index.php/auth/login")
-    driver.find_element_by_id("txtUsername").send_keys("Admin")
-    driver.find_element_by_id("txtPassword").send_keys("admin123")
-    driver.find_element_by_id("btnLogin").click()
-    driver.find_element_by_id("welcome").click()
+if __name__=='__main__':
+    unittest.main
 
