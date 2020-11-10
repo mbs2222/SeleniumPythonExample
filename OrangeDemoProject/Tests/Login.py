@@ -2,13 +2,17 @@ from selenium import webdriver
 import unittest
 import sys
 import os
+import HtmlTestRunner
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "...", "..."))
 from OrangeDemoProject.Pages.LoginPage import LoginPage
 
-class test_login(unittest.TestCase):
+
+class TestLogin(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome(executable_path="C:/Users/medbe/Documents/Automation Testing/SeleniumProject/SeleniumWebdrivers/chromedriver.exe")
+        cls.driver = webdriver.Chrome(
+            executable_path="C:/Users/medbe/Documents/Automation Testing/SeleniumProject/SeleniumWebdrivers/chromedriver.exe")
         cls.driver.implicitly_wait(10)
         cls.driver.maximize_window()
 
@@ -25,6 +29,7 @@ class test_login(unittest.TestCase):
         login.enter_password("admin123")
         login.click_login()
 
-if __name__=='__main__':
-    unittest.main
 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(
+        output='C:/Users/medbe/Documents/Automation Testing/SeleniumProject/Reports'))
